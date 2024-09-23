@@ -55,8 +55,7 @@ class TcKimlik
 
     public static function trUppercase($string)
     {
-        $string = str_replace(array('i'), array('İ'), $string);
-        return mb_convert_case($string, MB_CASE_UPPER, "UTF-8");
+        return \Transliterator::create('tr-Upper')->transliterate($string);
     }
 
 
