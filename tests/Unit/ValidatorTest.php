@@ -1,9 +1,9 @@
 <?php
 
-namespace Epigra\Tests;
+namespace BahriCanli\Tests;
 
-use Epigra\Tests\TestCase;
-use Epigra\TcKimlik;
+use BahriCanli\Tests\TestCase;
+use BahriCanli\TcKimlik;
 use Illuminate\Support\Str;
 
 class Validator extends TestCase {

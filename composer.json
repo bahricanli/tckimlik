@@ -1,8 +1,8 @@
 {
-	"name": "epigra/tckimlik",
+	"name": "bahricanli/tckimlik",
 	"description": "TC Kimlik Numarası Kontrolü ve Doğrulaması",
 	"keywords": ["tc kimlik","tckn","tc","kimlik", "doğrulama","laravel","form","validation"],
-	"homepage": "https://github.com/epigra/tckimlik",
+	"homepage": "https://github.com/bahricanli/tckimlik",
 	"license": "MIT",
 	"authors": [
 		{
@@ -12,16 +12,20 @@
 		{
 			"name": "Musa Kurt",
 			"email": "hackedtim61@gmail.com"
+		},
+		{
+			"name": "Bahri Meriç Canlı",
+			"email": "bahri@bahri.info"
 		}
 	],
 	"autoload": {
 		"psr-4": {
-			"Epigra\\": "src/"
+			"BahriCanli\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Epigra\\Tests\\": "tests/"
+			"BahriCanli\\Tests\\": "tests/"
 		}
 	},
 	"minimum-stability": "dev",

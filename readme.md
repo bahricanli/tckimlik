@@ -3,7 +3,7 @@
 ## Yükleme
 composer üzerinden:
 ```
-composer require epigra/tckimlik
+composer require bahricanli/tckimlik
 ````
 demeniz yeterli olacaktır.
 
@@ -12,7 +12,7 @@ demeniz yeterli olacaktır.
 #### Doğrulama (Verification)
 
 ```php
-use Epigra\TcKimlik;
+use BahriCanli\TcKimlik;
 
 $check = TcKimlik::verify('tckimlikno'); //string
 var_dump($check);
@@ -25,7 +25,7 @@ var_dump($check2);
 #### SOAP Onay (Validation)
 
 ```php
-use Epigra\TcKimlik;
+use BahriCanli\TcKimlik;
 
 $data = array(
 		'tcno'          => 'tckimlikno',
@@ -46,7 +46,7 @@ var_dump($check2);
 `config/app.php` dosyası içerisindeki providers arrayi altına
 
 ```
-Epigra\TCKimlikServiceProvider::class
+BahriCanli\TCKimlikServiceProvider::class
 ```
 
 satırını ekledikten sonra standart Validation kütüphanesi içerisinde

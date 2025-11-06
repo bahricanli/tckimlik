@@ -1,9 +1,9 @@
 <?php
-namespace Epigra;
+namespace BahriCanli;
 
 use Validator;
 use Illuminate\Support\ServiceProvider;
-use Epigra\TcKimlik;
+use BahriCanli\TcKimlik;
 
 class TCKimlikServiceProvider extends ServiceProvider
 {

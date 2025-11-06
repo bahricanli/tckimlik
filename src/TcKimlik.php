@@ -1,6 +1,6 @@
 <?php
 
-namespace Epigra;
+namespace BahriCanli;
 
 class TcKimlik
 {
@@ -120,7 +120,7 @@ class TcKimlik
         $postData = '<?xml version="1.0" encoding="utf-8"?>
                     <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                         <soap:Body>
-                            <' . $soapAction . ' xmlns="http://tckimlik.nvi.gov.tr/WS">
+                            <' . $soapAction . ' xmlns="http://tckimlik.linux.org.tr/WS">
                                 ' . $fields . '
                             </' . $soapAction . '>
                         </soap:Body>
@@ -128,7 +128,7 @@ class TcKimlik
 
         // CURL options
         $options = array(
-            CURLOPT_URL               => 'https://tckimlik.nvi.gov.tr' . $url,
+            CURLOPT_URL               => 'https://tckimlik.linux.org.tr' . $url,
             CURLOPT_POST              => true,
             CURLOPT_POSTFIELDS        => $postData,
             CURLOPT_RETURNTRANSFER    => true,
@@ -136,9 +136,9 @@ class TcKimlik
             CURLOPT_HEADER            => false,
             CURLOPT_HTTPHEADER        => array(
                 'POST ' . $url . ' HTTP/1.1',
-                'Host: tckimlik.nvi.gov.tr',
+                'Host: tckimlik.linux.org.tr',
                 'Content-Type: text/xml; charset=utf-8',
-                'SOAPAction: "http://tckimlik.nvi.gov.tr/WS/' . $soapAction . '"',
+                'SOAPAction: "http://tckimlik.linux.org.tr/WS/' . $soapAction . '"',
                 'Content-Length: ' . strlen($postData)
             ),
         );

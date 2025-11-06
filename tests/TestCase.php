@@ -1,6 +1,6 @@
 <?php
 
-namespace Epigra\Tests;
+namespace BahriCanli\Tests;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 class TestCase extends OrchestraTestCase {
 
@@ -15,14 +15,14 @@ class TestCase extends OrchestraTestCase {
 	protected function getPackageProviders($app)
 	{
 	    return [
-	    	\Epigra\TCKimlikServiceProvider::class,
+	    	\BahriCanli\TCKimlikServiceProvider::class,
 	    ];
 	}
 
 	protected function getPackageAliases($app)
 	{
 	    return [
-	        'TcKimlik' => \Epigra\TcKimlik::class,
+	        'TcKimlik' => \BahriCanli\TcKimlik::class,
 	    ];
 	}
 
