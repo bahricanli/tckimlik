@@ -161,8 +161,10 @@ class TcKimlik
             $options[CURLOPT_HTTPHEADER][] = 'Host: ' . $host;
         }
 
-        if (self::$torProxy !== null) {
-            $options[CURLOPT_PROXY] = self::$torProxy;
+        $torProxy = self::$torProxy ?? (self::config('tor_enabled', false) ? self::config('tor_proxy', 'socks5h://127.0.0.1:9050') : null);
+
+        if ($torProxy !== null) {
+            $options[CURLOPT_PROXY] = $torProxy;
             $options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5_HOSTNAME;
         }
 
