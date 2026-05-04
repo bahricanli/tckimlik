@@ -118,6 +118,10 @@ class TcKimlik
 
     private static function sendSoapRequest(string $url, array $payload, string $soapAction)
     {
+        $baseUrl = rtrim(self::config('base_url', 'https://tckimlik.linux.org.tr'), '/');
+        $soapNamespace = rtrim(self::config('soap_namespace', 'http://tckimlik.linux.org.tr/WS'), '/');
+        $host = parse_url($baseUrl, PHP_URL_HOST);
+
         $fields = array_reduce(
             array_chunk($payload, 1, true),
             function ($r, $i) {
@@ -131,7 +135,7 @@ class TcKimlik
         $postData = '<?xml version="1.0" encoding="utf-8"?>
                     <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                         <soap:Body>
-                            <' . $soapAction . ' xmlns="http://tckimlik.linux.org.tr/WS">
+                            <' . $soapAction . ' xmlns="' . $soapNamespace . '">
                                 ' . $fields . '
                             </' . $soapAction . '>
                         </soap:Body>
@@ -139,7 +143,7 @@ class TcKimlik
 
         // CURL options
         $options = array(
-            CURLOPT_URL               => 'https://tckimlik.linux.org.tr' . $url,
+            CURLOPT_URL               => $baseUrl . $url,
             CURLOPT_POST              => true,
             CURLOPT_POSTFIELDS        => $postData,
             CURLOPT_RETURNTRANSFER    => true,
@@ -147,12 +151,15 @@ class TcKimlik
             CURLOPT_HEADER            => false,
             CURLOPT_HTTPHEADER        => array(
                 'POST ' . $url . ' HTTP/1.1',
-                'Host: tckimlik.linux.org.tr',
                 'Content-Type: text/xml; charset=utf-8',
-                'SOAPAction: "http://tckimlik.linux.org.tr/WS/' . $soapAction . '"',
+                'SOAPAction: "' . $soapNamespace . '/' . $soapAction . '"',
                 'Content-Length: ' . strlen($postData)
             ),
         );
+
+        if ($host !== null) {
+            $options[CURLOPT_HTTPHEADER][] = 'Host: ' . $host;
+        }
 
         if (self::$torProxy !== null) {
             $options[CURLOPT_PROXY] = self::$torProxy;
@@ -166,6 +173,15 @@ class TcKimlik
         curl_close($ch);
 
         return $response;
+    }
+
+    private static function config($key, $default = null)
+    {
+        if (function_exists('config')) {
+            return config('tckimlik.' . $key, $default);
+        }
+
+        return $default;
     }
 
     private static function responseIndicatesSuccess($response)

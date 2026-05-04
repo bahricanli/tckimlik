@@ -39,6 +39,7 @@
 		"test:unit": "phpunit --group Unit"
 	},
   "require": {
-    "ext-intl": "*"
+    "ext-intl": "*",
+    "illuminate/support": "^8.75"
   }
 }
