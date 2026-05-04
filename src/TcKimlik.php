@@ -50,7 +50,7 @@ class TcKimlik
             self::yabanciKimlikValidate($data, $autoUppercase) :
             self::tcKimlikValidate($data, $autoUppercase);
 
-        return strip_tags($response) === 'true';
+        return self::responseIndicatesSuccess($response);
     }
 
     public static function trUppercase($string)
@@ -149,5 +149,18 @@ class TcKimlik
         curl_close($ch);
 
         return $response;
+    }
+
+    private static function responseIndicatesSuccess($response)
+    {
+        if (!is_string($response) || $response === '') {
+            return false;
+        }
+
+        if (preg_match('/<[^>]+Result>\s*true\s*<\/[^>]+Result>/i', $response) === 1) {
+            return true;
+        }
+
+        return trim(strip_tags($response)) === 'true';
     }
 }
