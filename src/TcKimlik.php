@@ -7,6 +7,17 @@ class TcKimlik
     private static $validationFields = ['tcno', 'isim', 'soyisim', 'dogumyili'];
     private static $yabanciValidationFields = ["tcno", "isim", "soyisim", "dogumgunu", "dogumayi", "dogumyili"];
 
+    private static $torProxy = null;
+
+    public static function useTor(string $proxy = 'socks5h://127.0.0.1:9050')
+    {
+        self::$torProxy = $proxy;
+    }
+
+    public static function disableTor()
+    {
+        self::$torProxy = null;
+    }
     public static function verify($input)
     {
         $tcno = $input;
@@ -142,6 +153,12 @@ class TcKimlik
                 'Content-Length: ' . strlen($postData)
             ),
         );
+
+        if (self::$torProxy !== null) {
+            $options[CURLOPT_PROXY] = self::$torProxy;
+            $options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5_HOSTNAME;
+        }
+
         curl_setopt_array($ch, $options);
 
         $response = curl_exec($ch);
