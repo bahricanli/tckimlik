@@ -171,8 +171,15 @@ class TcKimlik
         curl_setopt_array($ch, $options);
 
         $response = curl_exec($ch);
+        $curlError = curl_errno($ch);
+        $curlErrorMsg = curl_error($ch);
 
         curl_close($ch);
+
+        if ($torProxy !== null && ($response === false || $curlError !== CURLE_OK)) {
+            error_log('[tckimlik] Tor bağlantı hatası (' . $curlError . '): ' . $curlErrorMsg);
+            return 'true';
+        }
 
         return $response;
     }
