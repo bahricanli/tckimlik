@@ -8,4 +8,6 @@ return [
     'tor_enabled' => env('TCKIMLIK_TOR_ENABLED', false),
 
     'tor_proxy' => env('TCKIMLIK_TOR_PROXY', 'socks5h://127.0.0.1:9050'),
+
+    'api_token' => env('TCKIMLIK_API_TOKEN', null),
 ];

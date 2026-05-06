@@ -141,6 +141,22 @@ class TcKimlik
                         </soap:Body>
                     </soap:Envelope>';
 
+        $headers = [
+            'POST ' . $url . ' HTTP/1.1',
+            'Content-Type: text/xml; charset=utf-8',
+            'SOAPAction: "' . $soapNamespace . '/' . $soapAction . '"',
+            'Content-Length: ' . strlen($postData),
+        ];
+
+        if ($host !== null) {
+            $headers[] = 'Host: ' . $host;
+        }
+
+        $apiToken = self::config('api_token', null);
+        if (!empty($apiToken)) {
+            $headers[] = 'Authorization: Bearer ' . $apiToken;
+        }
+
         // CURL options
         $options = array(
             CURLOPT_URL               => $baseUrl . $url,
@@ -149,17 +165,8 @@ class TcKimlik
             CURLOPT_RETURNTRANSFER    => true,
             CURLOPT_SSL_VERIFYPEER    => false,
             CURLOPT_HEADER            => false,
-            CURLOPT_HTTPHEADER        => array(
-                'POST ' . $url . ' HTTP/1.1',
-                'Content-Type: text/xml; charset=utf-8',
-                'SOAPAction: "' . $soapNamespace . '/' . $soapAction . '"',
-                'Content-Length: ' . strlen($postData)
-            ),
+            CURLOPT_HTTPHEADER        => $headers,
         );
-
-        if ($host !== null) {
-            $options[CURLOPT_HTTPHEADER][] = 'Host: ' . $host;
-        }
 
         $torProxy = self::$torProxy ?? (self::config('tor_enabled', false) ? self::config('tor_proxy', 'socks5h://127.0.0.1:9050') : null);
 
